@@ -1,0 +1,9 @@
+{
+	"name": "team05datafactory",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e0de9eeb-6732-4a84-9dfd-d1bcd0049a6a",
+		"tenantId": "d57d32cc-c121-488f-b07b-dfe705680c71"
+	}
+}
