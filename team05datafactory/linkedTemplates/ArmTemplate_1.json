@@ -1344,6 +1344,7 @@
 						"          Recovered as integer",
 						"     ),",
 						"     format: 'parquet',",
+						"     partitionFileNames:['combineddata.parquet'],",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
