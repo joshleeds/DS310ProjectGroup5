@@ -32,6 +32,9 @@
 		"SqlServer3_connectionString": {
 			"value": ""
 		},
+		"challenge2storage_accountKey": {
+			"value": ""
+		},
 		"vmSqlServer4_connectionString": {
 			"value": ""
 		},
@@ -49,6 +52,9 @@
 		},
 		"GitHub1_properties_typeProperties_username": {
 			"value": "https://github.com/joshleeds"
+		},
+		"challenge2storage_properties_typeProperties_url": {
+			"value": "https://team05.dfs.core.windows.net/"
 		}
 	}
 }

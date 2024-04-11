@@ -43,6 +43,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServer3'"
 		},
+		"challenge2storage_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'challenge2storage'"
+		},
 		"vmSqlServer4_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'vmSqlServer4'"
@@ -66,6 +70,10 @@
 		"GitHub1_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "https://github.com/joshleeds"
+		},
+		"challenge2storage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://team05.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -121,6 +129,9 @@
 					"SqlServer3_connectionString": {
 						"value": "[parameters('SqlServer3_connectionString')]"
 					},
+					"challenge2storage_accountKey": {
+						"value": "[parameters('challenge2storage_accountKey')]"
+					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
@@ -132,6 +143,9 @@
 					},
 					"GitHub1_properties_typeProperties_username": {
 						"value": "[parameters('GitHub1_properties_typeProperties_username')]"
+					},
+					"challenge2storage_properties_typeProperties_url": {
+						"value": "[parameters('challenge2storage_properties_typeProperties_url')]"
 					}
 				}
 			},
