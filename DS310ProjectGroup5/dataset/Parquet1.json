@@ -1,5 +1,5 @@
 {
-	"name": "policyparquet",
+	"name": "Parquet1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage2",
@@ -10,13 +10,13 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileSystem": "cosmosdb"
+				"fileSystem": "policymetric"
 			},
 			"compressionCodec": "snappy"
 		},
 		"schema": [
 			{
-				"name": "CountryName",
+				"name": "Country",
 				"type": "UTF8"
 			},
 			{
@@ -36,7 +36,7 @@
 				"type": "UTF8"
 			},
 			{
-				"name": "Date",
+				"name": "FullDate",
 				"type": "INT96"
 			},
 			{
@@ -234,8 +234,27 @@
 			{
 				"name": "ts",
 				"type": "INT64"
+			},
+			{
+				"name": "CountryName",
+				"type": "UTF8"
+			},
+			{
+				"name": "Date",
+				"type": "INT96"
+			},
+			{
+				"name": "Confirmed",
+				"type": "INT32"
+			},
+			{
+				"name": "Deaths",
+				"type": "INT32"
+			},
+			{
+				"name": "Recovered",
+				"type": "INT32"
 			}
 		]
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }
