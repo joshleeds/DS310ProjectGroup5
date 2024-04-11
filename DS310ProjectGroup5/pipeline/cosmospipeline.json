@@ -501,7 +501,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "cosmosparquet",
+						"referenceName": "policyparquet",
 						"type": "DatasetReference"
 					}
 				]
