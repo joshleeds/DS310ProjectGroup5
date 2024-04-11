@@ -1,0 +1,19 @@
+{
+	"name": "deaths",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "challenge2storage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "policymetric"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
