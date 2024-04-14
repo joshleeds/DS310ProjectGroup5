@@ -81,6 +81,52 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Geographypipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "dataflow3",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow3",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow3')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SQLpipline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1565,11 +1611,33 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "Cases.parquet",
 						"fileSystem": "policymetric"
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "ID",
+						"type": "INT32"
+					},
+					{
+						"name": "Updated",
+						"type": "DATE"
+					},
+					{
+						"name": "Confirmed",
+						"type": "INT32"
+					},
+					{
+						"name": "Confirmed_Change",
+						"type": "INT32"
+					},
+					{
+						"name": "ISO3",
+						"type": "UTF8"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/challenge2storage')]"
@@ -1726,6 +1794,51 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/SqlServer2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Geography')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "challenge2storage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "policymetric"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "ID",
+						"type": "INT32"
+					},
+					{
+						"name": "Updated",
+						"type": "DATE"
+					},
+					{
+						"name": "Confirmed",
+						"type": "INT32"
+					},
+					{
+						"name": "Confirmed_Change",
+						"type": "INT32"
+					},
+					{
+						"name": "ISO3",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/challenge2storage')]"
 			]
 		},
 		{
@@ -2007,11 +2120,33 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "Recoveries.parquet",
 						"fileSystem": "policymetric"
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "ID",
+						"type": "INT32"
+					},
+					{
+						"name": "Updated",
+						"type": "DATE"
+					},
+					{
+						"name": "Recovered",
+						"type": "INT32"
+					},
+					{
+						"name": "Recovered_Change",
+						"type": "INT32"
+					},
+					{
+						"name": "ISO3",
+						"type": "UTF8"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/challenge2storage')]"
@@ -2145,11 +2280,33 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "death.parquet",
 						"fileSystem": "policymetric"
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "ID",
+						"type": "INT32"
+					},
+					{
+						"name": "Updated",
+						"type": "DATE"
+					},
+					{
+						"name": "Deaths",
+						"type": "INT32"
+					},
+					{
+						"name": "Deaths_Change",
+						"type": "INT32"
+					},
+					{
+						"name": "ISO3",
+						"type": "UTF8"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/challenge2storage')]"
@@ -2169,6 +2326,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "newCountry.parquet",
 						"fileSystem": "policymetric"
 					},
 					"compressionCodec": "snappy"
@@ -2193,62 +2351,40 @@
 						"type": "DECIMAL",
 						"precision": 10,
 						"scale": 5
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/challenge2storage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/newDates')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "challenge2storage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "newDates.parquet",
+						"fileSystem": "policymetric"
 					},
-					{
-						"name": "ID",
-						"type": "INT32"
-					},
-					{
-						"name": "Updated",
-						"type": "DATE"
-					},
-					{
-						"name": "Confirmed",
-						"type": "INT32"
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Deaths",
-						"type": "INT32"
-					},
-					{
-						"name": "Deaths_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "Recovered",
-						"type": "INT32"
-					},
-					{
-						"name": "Recovered_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "ISO2",
-						"type": "UTF8"
-					},
-					{
-						"name": "ISO3",
-						"type": "UTF8"
-					},
-					{
-						"name": "Country_Region",
-						"type": "UTF8"
-					},
-					{
-						"name": "load_time",
-						"type": "INT96"
-					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
 					{
 						"name": "DateKey",
 						"type": "INT32"
 					},
 					{
 						"name": "FullDate",
-						"type": "INT96"
+						"type": "DATE"
 					},
 					{
 						"name": "isWeekDay",
@@ -2321,9 +2457,39 @@
 					{
 						"name": "FiscalYear",
 						"type": "INT32"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/challenge2storage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/newPolicy')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "challenge2storage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "newPolicy.parquet",
+						"fileSystem": "policymetric"
 					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
 					{
 						"name": "CountryName",
+						"type": "UTF8"
+					},
+					{
+						"name": "CountryCode",
 						"type": "UTF8"
 					},
 					{
@@ -2545,54 +2711,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/newDates')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "challenge2storage",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "policymetric"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/challenge2storage')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/newPolicy')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "challenge2storage",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "policymetric"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/challenge2storage')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/parquet1countrysql')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -2606,6 +2724,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "dbo.Country.parquet",
 						"fileSystem": "sqldb"
 					},
 					"compressionCodec": "snappy"
@@ -4305,21 +4424,21 @@
 						"          Country as string,",
 						"          CountryCode as string,",
 						"          Latitude as decimal(10,5),",
-						"          Longitude as decimal(10,5),",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          Deaths as integer,",
-						"          Deaths_Change as integer,",
-						"          Recovered as integer,",
-						"          Recovered_Change as integer,",
-						"          ISO2 as string,",
-						"          ISO3 as string,",
-						"          Country_Region as string,",
-						"          load_time as timestamp,",
+						"          Longitude as decimal(10,5)",
+						"     ),",
+						"     format: 'parquet',",
+						"     partitionFileNames:['newCountry.parquet'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> sink1",
+						"dates sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
 						"          DateKey as integer,",
-						"          FullDate as timestamp,",
+						"          FullDate as date,",
 						"          isWeekDay as boolean,",
 						"          DayOfWeek as integer,",
 						"          DayOfMonth as integer,",
@@ -4337,8 +4456,21 @@
 						"          FiscalMonthName as string,",
 						"          FiscalQuarter as integer,",
 						"          FiscalQuarterName as string,",
-						"          FiscalYear as integer,",
+						"          FiscalYear as integer",
+						"     ),",
+						"     format: 'parquet',",
+						"     partitionFileNames:['newDates.parquet'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> sink2",
+						"select2 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
 						"          CountryName as string,",
+						"          CountryCode as string,",
 						"          RegionName as string,",
 						"          RegionCode as string,",
 						"          Jurisdiction as string,",
@@ -4394,26 +4526,6 @@
 						"          ts as long",
 						"     ),",
 						"     format: 'parquet',",
-						"     partitionFileNames:['newCountry.parquet'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> sink1",
-						"dates sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'parquet',",
-						"     partitionFileNames:['newDates.parquet'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> sink2",
-						"select2 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'parquet',",
 						"     partitionFileNames:['newPolicy.parquet'],",
 						"     umask: 0022,",
 						"     preCommands: [],",
@@ -4423,6 +4535,13 @@
 						"     partitionBy('hash', 1)) ~> sink3",
 						"recoveryselect sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     input(",
+						"          ID as integer,",
+						"          Updated as date,",
+						"          Recovered as integer,",
+						"          Recovered_Change as integer,",
+						"          ISO3 as string",
+						"     ),",
 						"     format: 'parquet',",
 						"     partitionFileNames:['Recoveries.parquet'],",
 						"     umask: 0022,",
@@ -4433,6 +4552,13 @@
 						"     partitionBy('hash', 1)) ~> sink4",
 						"casesselect sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     input(",
+						"          ID as integer,",
+						"          Updated as date,",
+						"          Confirmed as integer,",
+						"          Confirmed_Change as integer,",
+						"          ISO3 as string",
+						"     ),",
 						"     format: 'parquet',",
 						"     partitionFileNames:['Cases.parquet'],",
 						"     umask: 0022,",
@@ -4443,6 +4569,13 @@
 						"     partitionBy('hash', 1)) ~> sink5",
 						"deathselect sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     input(",
+						"          ID as integer,",
+						"          Updated as date,",
+						"          Deaths as integer,",
+						"          Deaths_Change as integer,",
+						"          ISO3 as string",
+						"     ),",
 						"     format: 'parquet',",
 						"     partitionFileNames:['death.parquet'],",
 						"     umask: 0022,",
@@ -4466,6 +4599,68 @@
 				"[concat(variables('factoryId'), '/datasets/Recoveries')]",
 				"[concat(variables('factoryId'), '/datasets/Cases')]",
 				"[concat(variables('factoryId'), '/datasets/deaths')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow3')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "parquet1countrysql",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "Geography",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          Country as string,",
+						"          CountryCode as string,",
+						"          Latitude as decimal(10,5),",
+						"          Longitude as decimal(10,5)",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> source1",
+						"source1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          ID as integer,",
+						"          Updated as date,",
+						"          Confirmed as integer,",
+						"          Confirmed_Change as integer,",
+						"          ISO3 as string",
+						"     ),",
+						"     format: 'parquet',",
+						"     partitionFileNames:['Geography.parquet'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/parquet1countrysql')]",
+				"[concat(variables('factoryId'), '/datasets/Geography')]"
 			]
 		}
 	]
