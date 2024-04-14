@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "data_936d4a35-f948-4907-9e06-e57267fb8df9_db0f2cc0-2a93-44cf-87ba-80620fc82250.parquet",
 				"fileSystem": "cosmosdb"
 			},
 			"compressionCodec": "snappy"
