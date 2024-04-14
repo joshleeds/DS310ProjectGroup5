@@ -1,5 +1,5 @@
 {
-	"name": "Recoveries",
+	"name": "Geography",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "challenge2storage",
@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Recoveries.parquet",
 				"fileSystem": "policymetric"
 			},
 			"compressionCodec": "snappy"
@@ -25,11 +24,11 @@
 				"type": "DATE"
 			},
 			{
-				"name": "Recovered",
+				"name": "Confirmed",
 				"type": "INT32"
 			},
 			{
-				"name": "Recovered_Change",
+				"name": "Confirmed_Change",
 				"type": "INT32"
 			},
 			{

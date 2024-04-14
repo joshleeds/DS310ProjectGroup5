@@ -10,10 +10,232 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "newPolicy.parquet",
 				"fileSystem": "policymetric"
 			},
 			"compressionCodec": "snappy"
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "CountryName",
+				"type": "UTF8"
+			},
+			{
+				"name": "CountryCode",
+				"type": "UTF8"
+			},
+			{
+				"name": "RegionName",
+				"type": "UTF8"
+			},
+			{
+				"name": "RegionCode",
+				"type": "UTF8"
+			},
+			{
+				"name": "Jurisdiction",
+				"type": "UTF8"
+			},
+			{
+				"name": "Date",
+				"type": "INT96"
+			},
+			{
+				"name": "C1schoolclosing",
+				"type": "INT64"
+			},
+			{
+				"name": "C1Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "C2Workplace_closing",
+				"type": "INT64"
+			},
+			{
+				"name": "C2Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "C3Cancel_public_events",
+				"type": "INT64"
+			},
+			{
+				"name": "C3Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "C4Restrictions_on_gatherings",
+				"type": "INT64"
+			},
+			{
+				"name": "C4Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "C5Close_public_transport",
+				"type": "INT64"
+			},
+			{
+				"name": "C5Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "C6Stay_at_home_requirements",
+				"type": "INT64"
+			},
+			{
+				"name": "C6Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "C7Restrictions_on_internal_movement",
+				"type": "INT64"
+			},
+			{
+				"name": "C7Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "C8International_travel_controls",
+				"type": "INT64"
+			},
+			{
+				"name": "E1Income_support",
+				"type": "INT64"
+			},
+			{
+				"name": "E1Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "E2Debt_contract_relief",
+				"type": "INT64"
+			},
+			{
+				"name": "E3Fiscal_measures",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "E4International_support",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "H1Public_information_campaigns",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "H1Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "H2Testing_policy",
+				"type": "INT64"
+			},
+			{
+				"name": "H3Contact_tracing",
+				"type": "INT64"
+			},
+			{
+				"name": "H4Emergency_investment_in_healthcare",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "H5Investment_in_vaccines",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "H6Facial_Coverings",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "H6Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "H7Vaccination_policy",
+				"type": "INT64"
+			},
+			{
+				"name": "H7Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "H8Protection_of_elderly_people",
+				"type": "INT64"
+			},
+			{
+				"name": "H8Flag",
+				"type": "INT64"
+			},
+			{
+				"name": "M1Wildcard",
+				"type": "INT64"
+			},
+			{
+				"name": "StringencyIndex",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "StringencyIndexForDisplay",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "StringencyLegacyIndex",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "StringencyLegacyIndexForDisplay",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "GovernmentResponseIndex",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "GovernmentResponseIndexForDisplay",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "ContainmentHealthIndex",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "ContainmentHealthIndexForDisplay",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "EconomicSupportIndex",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "EconomicSupportIndexForDisplay",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "id",
+				"type": "UTF8"
+			},
+			{
+				"name": "rid",
+				"type": "UTF8"
+			},
+			{
+				"name": "self",
+				"type": "UTF8"
+			},
+			{
+				"name": "etag",
+				"type": "UTF8"
+			},
+			{
+				"name": "attachments",
+				"type": "UTF8"
+			},
+			{
+				"name": "ts",
+				"type": "INT64"
+			}
+		]
 	}
 }

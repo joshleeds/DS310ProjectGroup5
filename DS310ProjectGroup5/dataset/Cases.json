@@ -10,10 +10,32 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "Cases.parquet",
 				"fileSystem": "policymetric"
 			},
 			"compressionCodec": "snappy"
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "ID",
+				"type": "INT32"
+			},
+			{
+				"name": "Updated",
+				"type": "DATE"
+			},
+			{
+				"name": "Confirmed",
+				"type": "INT32"
+			},
+			{
+				"name": "Confirmed_Change",
+				"type": "INT32"
+			},
+			{
+				"name": "ISO3",
+				"type": "UTF8"
+			}
+		]
 	}
 }
