@@ -1810,30 +1810,31 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "Geography.parquet",
 						"fileSystem": "policymetric"
 					},
 					"compressionCodec": "snappy"
 				},
 				"schema": [
 					{
-						"name": "ID",
-						"type": "INT32"
-					},
-					{
-						"name": "Updated",
-						"type": "DATE"
-					},
-					{
-						"name": "Confirmed",
-						"type": "INT32"
-					},
-					{
-						"name": "Confirmed_Change",
-						"type": "INT32"
-					},
-					{
-						"name": "ISO3",
+						"name": "Country",
 						"type": "UTF8"
+					},
+					{
+						"name": "CountryCode",
+						"type": "UTF8"
+					},
+					{
+						"name": "Latitude",
+						"type": "DECIMAL",
+						"precision": 10,
+						"scale": 5
+					},
+					{
+						"name": "Longitude",
+						"type": "DECIMAL",
+						"precision": 10,
+						"scale": 5
 					}
 				]
 			},
@@ -2962,6 +2963,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "data_936d4a35-f948-4907-9e06-e57267fb8df9_db0f2cc0-2a93-44cf-87ba-80620fc82250.parquet",
 						"fileSystem": "cosmosdb"
 					},
 					"compressionCodec": "snappy"
@@ -4641,11 +4643,10 @@
 						"source1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
-						"          ID as integer,",
-						"          Updated as date,",
-						"          Confirmed as integer,",
-						"          Confirmed_Change as integer,",
-						"          ISO3 as string",
+						"          Country as string,",
+						"          CountryCode as string,",
+						"          Latitude as decimal(10,5),",
+						"          Longitude as decimal(10,5)",
 						"     ),",
 						"     format: 'parquet',",
 						"     partitionFileNames:['Geography.parquet'],",
