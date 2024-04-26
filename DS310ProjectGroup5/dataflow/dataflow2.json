@@ -43,7 +43,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "newCountry",
+						"referenceName": "Geography",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -85,9 +85,6 @@
 				}
 			],
 			"transformations": [
-				{
-					"name": "select1"
-				},
 				{
 					"name": "select2"
 				},
@@ -242,14 +239,6 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'parquet') ~> metricsvm",
-				"country select(mapColumn(",
-				"          Country,",
-				"          CountryCode,",
-				"          Latitude,",
-				"          Longitude",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
 				"policy select(mapColumn(",
 				"          each(match(/* All input columns */true()),",
 				"               /* Input name */$$ = $$)",
@@ -284,7 +273,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> deathselect",
-				"select1 sink(allowSchemaDrift: true,",
+				"country sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          Country as string,",
