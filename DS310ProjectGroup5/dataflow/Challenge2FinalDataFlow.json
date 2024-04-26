@@ -1,5 +1,5 @@
 {
-	"name": "dataflow2",
+	"name": "Challenge2FinalDataFlow",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
